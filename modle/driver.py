@@ -8,6 +8,8 @@ class Browser:
     def get_driver(self):
         return self.driver
 """
+# file_path=os.path.abspath('./')
+file_path=os.path.dirname(os.path.dirname(__file__))
 
 
 
@@ -19,8 +21,8 @@ class Chrome():
     # options.add_experimental_option("excludeSwitches", ["ignore-certificate-errors"])
     #驱动最大化打开谷歌浏览器
     def browser_chrome(self):
-        # print(os.path.abspath('./')+'\\Application60\\chromedriver.exe')
-        self.driver=webdriver.Chrome(executable_path=os.path.abspath('..')+'\\Application60\\chromedriver.exe')
+        print(file_path+'\\Application60\\chromedriver.exe')
+        self.driver=webdriver.Chrome(executable_path=file_path+'\\Application60\\chromedriver.exe')
 
         self.driver.maximize_window()
 

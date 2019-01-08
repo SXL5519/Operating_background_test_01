@@ -1,6 +1,8 @@
 import random
 from time import sleep
 
+import os
+
 from Elements.element import shops_manage
 from positions.base import Page
 
@@ -86,12 +88,16 @@ class Shops_Manage(shops_manage,Page):
         上传店铺LOGO
         :return:
         """
-        self.find_element(*self.shops_logo).send_keys('D:\\11.png')
-        print('上传成功')
+        file=self.file_path(os.path.dirname(os.path.dirname(__file__))+'/upload_img')
+        i=random.randint(0,len(file)-1)
+        self.find_element(*self.shops_logo).send_keys(os.path.dirname(os.path.dirname(__file__))+'/upload_img/'+file[i])
+        print('上传成功'+file[i])
 
     def Shops_photo(self):
-        self.find_element(*self.shops_photo).send_keys('D:\\11.png')
-        print('上传成功')
+        file = self.file_path(os.path.dirname(os.path.dirname(__file__)) + '/upload_img')
+        i = random.randint(0, len(file) - 1)
+        self.find_element(*self.shops_photo).send_keys(os.path.dirname(os.path.dirname(__file__))+'/upload_img/'+file[i])
+        print('上传成功'+file[i])
 
     def Company_name(self):
         """
