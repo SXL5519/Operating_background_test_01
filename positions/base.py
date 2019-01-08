@@ -37,6 +37,7 @@ class Page():
         wait.until(EC.presence_of_element_located(locator))
 
     def Get(self,url):
+        print(self.base_url+'IndexPage/'+url)
         self.driver.get(self.base_url+'IndexPage/'+url)
         self.driver.implicitly_wait(self.time)
 
@@ -98,11 +99,17 @@ class Page():
         """
         self.driver.close()
 
+    def file_path(self,file_dir):
+        """
+        os.walk，生成生成器
+        :param file_dir: 文件绝对路径
+        :return: 当前目录路径 ， 当前路径下的所有子目录 ，当前目录下的所有非目录子文件
+        """
+        file=''
+        files=os.walk(file_dir)####创建生成器
+        for i in files:
+            file=i[2]
+            print(file)
+        return file
 
-    def Get(self,url):
-        """
-        跳转到指定URL页面
-        :param url:
-        :return:
-        """
-        self.driver.get(url)
+

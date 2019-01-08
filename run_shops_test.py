@@ -3,7 +3,7 @@ import unittest,time
 from HTMLTestRunner_PY3_1 import HTMLTestRunner
 case_dir = "./test_case"
 
-discover = unittest.defaultTestLoader.discover(case_dir,pattern="*case_*.py")
+discover = unittest.defaultTestLoader.discover(case_dir,pattern="*case_shops.py")
 
 
 if __name__ =='__main__':
