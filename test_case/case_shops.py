@@ -41,6 +41,7 @@ class shops_manage(MyTest):
         hb.Merchant_companyType()
         sleep(1.5)
         hb.Submit()
+        sleep(1)
 
     def test_placeholder_query(self):
         """验证商家ID查询"""
