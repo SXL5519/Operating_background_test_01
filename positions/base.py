@@ -1,4 +1,5 @@
 import os
+import random
 import time
 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -99,17 +100,26 @@ class Page():
         """
         self.driver.close()
 
-    def file_path(self,file_dir):
+    def file_path(self):
         """
         os.walk，生成生成器
         :param file_dir: 文件绝对路径
         :return: 当前目录路径 ， 当前路径下的所有子目录 ，当前目录下的所有非目录子文件
         """
         file=''
-        files=os.walk(file_dir)####创建生成器
+        # files=os.walk(file_dir)####创建生成器
+        # for i in files:
+        #     file=i[2]
+        #     print(file)
+
+        files = os.walk(os.path.dirname(os.path.dirname(__file__)) + '/upload_img')
         for i in files:
             file=i[2]
-            print(file)
-        return file
+        i = random.randint(0, len(file) - 1)
+        # self.find_element(n).send_keys(
+        #     os.path.dirname(os.path.dirname(__file__)) + '/upload_img/' + file[i])
+        print('上传' + file[i])
+
+        return os.path.dirname(os.path.dirname(__file__)) + '/upload_img/' + file[i]
 
 

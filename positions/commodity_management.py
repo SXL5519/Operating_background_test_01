@@ -3,6 +3,8 @@ import re
 import string
 from time import sleep
 
+import os
+
 from Elements.element import Commodity_management
 from positions.base import Page
 
@@ -377,8 +379,14 @@ class Commodity_Management(Commodity_management,Page):
         :return:
         """
         # self.wait_element_located(self.driver,self.select_pictures)
-        self.find_element(*self.select_pictures).send_keys('D:\\11.png')
-        print('上传成功')
+        # file = self.file_path(os.path.dirname(os.path.dirname(__file__)) + '/upload_img')
+        # i = random.randint(0, len(file) - 1)
+        # self.find_element(*self.select_pictures).send_keys(
+        #     os.path.dirname(os.path.dirname(__file__)) + '/upload_img/' + file[i])
+        # print('上传成功' + file[i])
+        self.find_element(*self.select_pictures).send_keys(self.file_path())
+        # self.find_element(*self.select_pictures).send_keys('D:\\11.png')
+        # print('上传成功')
 
     def Default(self):
         '''
@@ -393,7 +401,8 @@ class Commodity_Management(Commodity_management,Page):
         上传商品相册
         :return:
         '''
-        self.find_element(*self.commdity_album).send_keys('D:\\11.png')
+
+        self.find_element(*self.commdity_album).send_keys(self.file_path())
         print('上传成功')
 
     def Next_3(self):
@@ -678,6 +687,7 @@ class Commodity_Management(Commodity_management,Page):
         点击待审核按钮
         :return:
         """
+
         n = random.randint(1, self.Shop_amount())
         m = self.find_element(*self.Shop_num(n,3)).text
         self.find_element(*self.Audition(n)).click()

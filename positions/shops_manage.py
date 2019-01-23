@@ -88,16 +88,16 @@ class Shops_Manage(shops_manage,Page):
         上传店铺LOGO
         :return:
         """
-        file=self.file_path(os.path.dirname(os.path.dirname(__file__))+'/upload_img')
-        i=random.randint(0,len(file)-1)
-        self.find_element(*self.shops_logo).send_keys(os.path.dirname(os.path.dirname(__file__))+'/upload_img/'+file[i])
-        print('上传成功'+file[i])
+        # file=self.file_path(os.path.dirname(os.path.dirname(__file__))+'/upload_img')
+        # i=random.randint(0,len(file)-1)
+        self.find_element(*self.shops_logo).send_keys(self.file_path())
+        print('上传成功')
 
     def Shops_photo(self):
-        file = self.file_path(os.path.dirname(os.path.dirname(__file__)) + '/upload_img')
-        i = random.randint(0, len(file) - 1)
-        self.find_element(*self.shops_photo).send_keys(os.path.dirname(os.path.dirname(__file__))+'/upload_img/'+file[i])
-        print('上传成功'+file[i])
+        # file = self.file_path(os.path.dirname(os.path.dirname(__file__)) + '/upload_img')
+        # i = random.randint(0, len(file) - 1)
+        self.find_element(*self.shops_photo).send_keys(self.file_path())
+        print('上传成功')
 
     def Company_name(self):
         """
