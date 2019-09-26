@@ -165,16 +165,16 @@ class Commodity_Management(Commodity_management,Page):
         选择商家名称
         :return:
         """
-        # a = self.find_elements(*self.shops_selects)
-        # if len(a) > 1:
-        #     n = random.randint(1, len(a))
-        #     self.find_element(*self.Shops_select(n)).click()  ##点击商品名称
-        #     print('第%d个商家名称'%(n+1)+':'+self.Shops_title())
-        # else:
-        #     self.find_element(*self.shops_selects).click()
-        #     print('选择第一个商家名称')
+        a = self.find_elements(*self.shops_selects)
+        if len(a) > 1:
+            n = random.randint(1, len(a))
+            self.find_element(*self.Shops_select(n)).click()  ##点击商品名称
+            print('第%d个商家名称'%(n+1)+':'+self.Shops_title())
+        else:
+            self.find_element(*self.shops_selects).click()
+            print('选择第一个商家名称')
 
-        self.find_element(*self.shops_title).send_keys("sxl")
+        # self.find_element(*self.shops_title).send_keys("sxl")
 
     def Shops_presentation(self):
         """
@@ -581,7 +581,8 @@ class Commodity_Management(Commodity_management,Page):
         点击商品名称
         :return:
         """
-        self.find_element(*self.shop_name_input).click()
+        # print(self.find_elements(*self.shop_name_input))
+        self.find_elements(*self.shop_name_input)[0].click()
 
     def Shop_names(self):
         """
@@ -785,6 +786,8 @@ class Commodity_Management(Commodity_management,Page):
         """
         ns=self.Shop_amount()
         n=random.randint(1,ns)
+        target = self.find_element(*self.Shop_num1(n,2))
+        self.driver.execute_script("arguments[0].scrollIntoView();", target)
         m=self.find_element(*self.Shop_num1(n,2)).text
         self.find_element(*self.Shop_num1(n,8)).click()
         print('还原商品编码：'+m)
@@ -817,6 +820,9 @@ class Commodity_Management(Commodity_management,Page):
         :return:
         """
         self.find_element(*self.search_input).send_keys(m)
+
+    def Search_user_input(self,m):
+        self.find_element(*self.search_user_input).send_keys(m)
 
     def Search_click(self):
         """
@@ -914,3 +920,19 @@ class Commodity_Management(Commodity_management,Page):
         :return:
         """
         self.find_element(*self.goodclass_search).click()
+
+        ####################鼠标下拉到底部
+####################鼠标下拉到底部
+    def Afive_down(self):
+        js = "window.scroll(0,3000000)"
+        self.driver.execute_script(js)
+
+
+    def Afive_top(self):
+        js = "window.scroll(0,0)"
+        self.driver.execute_script(js)
+
+    def Afive(self):
+        #####下拉到指定位置
+        target = self.find_element(*self.down_top)
+        self.driver.execute_script("arguments[0].scrollIntoView();", target)

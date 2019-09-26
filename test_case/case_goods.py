@@ -242,6 +242,7 @@ class My_home_case(MyTest):
         sleep(1.5)
         ha.Get("GoodsList")
         hb = Commodity_Management(self.driver)
+        sleep(2)
         hb.Shop_name_input()
         mur=hb.Shop_Name()
         hb.assert_addcommdity1()
@@ -313,6 +314,7 @@ class My_home_case(MyTest):
         sleep(1.5)
         mur1 = hb.SHOP_Classs()
         hb.Shop_name_input()
+        sleep(2)
         mur2 = hb.Shop_Name()
         hb.assert_addcommdity1()
         sleep(1)
@@ -338,8 +340,9 @@ class My_home_case(MyTest):
         mur1 = hb.SHOP_Classs()
         hb.Shop_name_input()
         mur2 = hb.Shop_Name()
+        sleep(0.5)
         hb.assert_addcommdity1()
-        sleep(1.5)
+        sleep(3)
         obj1 = hb.Shop_Type(3)
         obj2 = hb.Shop_Type(7)
         if obj1 != 0:
@@ -594,10 +597,10 @@ class My_home_case(MyTest):
         ha.Get("GoodsStation")
         hb = Commodity_Management(self.driver)
         obj=hb.click_restore()
+        sleep(1)
         hb.Delete_affirm(2)
         hb.Search(obj)
         hb.assert_addcommdity1()
-        sleep(1)
         mur = hb.Shop_amount()
         if mur!= 0:
             raise Exception('商品还原失败')
@@ -672,7 +675,7 @@ class My_home_case(MyTest):
         sleep(1)
         mur=hb.text_good_evaluate_name(3)[0]
         print('用户昵称：'+mur)
-        hb.Search_input(mur)
+        hb.Search_user_input(mur)
         hb.Search_click()
         obj=hb.text_good_evaluate_name(3)[0]
         print('搜索后的用户昵称：'+obj)

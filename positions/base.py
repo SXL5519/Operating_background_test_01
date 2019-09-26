@@ -10,13 +10,14 @@ import json
 class Page():
 
     # base_url="https://mantest.godteam.net/#/"
-    base_url = "https://mantest.godteam.net/#/"
+    # base_url = "https://mantest.godteam.net/#/"##外网
+    base_url = "http://192.168.1.72:82/#/"  ##内网
     #初始化方法
     def __init__(self,driver,url=base_url):
         # self.requests = None
         self.driver = driver
         self.url = url
-        self.time=8
+        self.time=3
 
     #打开相应网址
     def open(self):

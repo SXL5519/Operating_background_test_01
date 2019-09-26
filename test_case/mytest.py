@@ -18,6 +18,4 @@ class MyTest(unittest.TestCase):
         self.driver=d.browser_chrome()
 
     def tearDown(self):
-        # time.sleep(2)
-
         self.driver.quit()

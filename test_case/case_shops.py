@@ -23,6 +23,7 @@ class shops_manage(MyTest):
         hb.Shops_logo()
         hb.Key_word()
         hb.Shops_photo()
+        sleep(10)
         hb.Business_license()
         hb.Company_name()
         hb.Company_certifyNO()

@@ -13,7 +13,7 @@ class login_operate(Page,Log_in):
 
     def ipput_passWord(self):
         self.find_element(*self.passWord).clear()  ###清空内容
-        self.find_element(*self.passWord).send_keys('123456')
+        self.find_element(*self.passWord).send_keys('000000')
 
     def click_lofin_button(self):
         self.find_element(*self.login_submit).click()###点击登录按钮

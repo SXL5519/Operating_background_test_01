@@ -109,16 +109,16 @@ class Commodity_management():
     early_warns = (By.XPATH,
                   '//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[1]/div[2]/div[2]/div/div/div/div/div/table/tbody/tr/td[6]/div/div[2]/input')
     def Upload_Pictures(self,n):
-        upload_pictures=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[1]/div[2]/div[2]/div/div/div/div/div/table/tbody/tr[%d]/td[10]/a[1]'%n)##上传图片
+        upload_pictures=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[1]/div[2]/div[2]/div/div/div/div/div/table/tbody/tr[%d]/td[11]/a[1]'%n)##上传图片
         return upload_pictures
 
     upload_picturess = (By.XPATH,
-                       '//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[1]/div[2]/div[2]/div/div/div/div/div/table/tbody/tr/td[10]/a[1]')  ##上传图片
+                       '//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[1]/div[2]/div[2]/div/div/div/div/div/table/tbody/tr/td[11]/a[1]')  ##上传图片
 
     upload_picture = (By.XPATH,
                        '//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[1]/div[2]/div[2]/div/div/div/div/div/table/tbody/tr')  ##上传图片集
     select_pictures=(By.XPATH,'/html/body/div[5]/div/div[2]/div/div[1]/div/div/div[1]/div/div/div[2]/div/div/span/div[2]/span/input')##选择图片
-    default=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[1]/div[2]/div[2]/div/div/div/div/div/table/tbody/tr/td[10]/label/span[1]/input')###默认
+    default=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[1]/div[2]/div[2]/div/div/div/div/div/table/tbody/tr/td[11]/label/span[1]/input')###默认
     commdity_album=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section[3]/div[2]/div/div/div/div/span/div[2]/span/input')###商品相册
     next_3=(By.CLASS_NAME,'ant-btn-primary')##商品属性页，下一步
     relevance_commditys=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[2]/div/section/div[2]/div[2]/div/div[1]/div[2]/ul/div')###关联商品集
@@ -130,7 +130,7 @@ class Commodity_management():
     submit=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div[3]/button[2]')###提交按钮
 
     search=(By.ID,'queryWord')###商品列表页，搜索框定位
-    look_up=(By.CSS_SELECTOR,'.ant-btn.ant-btn-primary')##查询，商品列表页
+    look_up=(By.CSS_SELECTOR,'[type=submit].ant-btn.ant-btn-primary')##查询，商品列表页
     commdity_name_list=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div/div[3]/div/div/div/div/div[2]/div/table/tbody/tr[1]/td[5]/div/div[1]')###商品名称，商品列表页
 
     def Navigation_bar(self,n):
@@ -159,13 +159,13 @@ class Commodity_management():
         return shop_type##商品类型定位
 
     shop_amount=(By.CSS_SELECTOR,'.ant-table-tbody>tr')###当前页商品数量显示
-    shop_name_input=(By.CSS_SELECTOR,'.ant-select-selection__placeholder')###商品名称输入框
+    shop_name_input=(By.CSS_SELECTOR,'.ant-select-selection__placeholder')###商家名称输入框
     shop_names=(By.CSS_SELECTOR,'.ant-select-dropdown-menu>li')###商家名称集
     def Shop_name(self,n):
         shop_name=(By.CSS_SELECTOR,'.ant-select-dropdown-menu>li:nth-child(%d)'%n)###商家名称
         return shop_name
 
-    revise_food_stamps=(By.CSS_SELECTOR,'.actionBar___335p7>div:nth-child(3)>div>span>span>button')###修改粮票规则按钮
+    revise_food_stamps=(By.CSS_SELECTOR,'.actionBar___335p7>div:nth-child(3)>div>span:nth-child(2)')###修改粮票规则按钮
     food_stamps_select=(By.CSS_SELECTOR,'.ant-col-14.ant-form-item-control-wrapper')##粮票规则下拉框
     def Foog_stamps(self,n):
         foog_stamps=(By.CSS_SELECTOR,'.ant-select-dropdown-menu-vertical>li:nth-child(%d)'%n)###粮票规则
@@ -181,7 +181,7 @@ class Commodity_management():
         putaway=(By.CSS_SELECTOR,'.ant-table-tbody>tr:nth-child(%d)>td:nth-child(7)>div>div>span'%n)##上架按钮
         return putaway
     def Audition(self,n):
-        audition=(By.CSS_SELECTOR,'.ant-table-tbody>tr:nth-child(%d)>td:nth-child(11)>div>span>span>div'%n)###审核状态
+        audition=(By.CSS_SELECTOR,'.ant-table-tbody>tr:nth-child(%d)>td:nth-child(12)>div>span>span>div'%n)###审核状态
         return audition
     audit_pass=(By.CSS_SELECTOR,'.ant-radio-input')###审核通过
     def audit_ion(self,n):
@@ -200,7 +200,7 @@ class Commodity_management():
         :param n:当前页面第n个商品数据
         :return:
         """
-        delete_n = (By.CSS_SELECTOR, '.ant-table-tbody>tr:nth-child(%d)>td:nth-child(12)>p>a:nth-child(7)' % n)
+        delete_n = (By.CSS_SELECTOR, '.ant-table-tbody>tr:nth-child(%d)>td:nth-child(13)>p>a:nth-child(7)' % n)
         return delete_n
 
     error_massage=(By.CSS_SELECTOR,'.ant-message-error>span')##页面错误消息提示定位
@@ -231,6 +231,8 @@ class Commodity_management():
         return evaluate
 
     search_input=(By.ID,'goodsName')##商品评价搜索框定位
+    search_user_input=(By.ID,'userName')###商品评价昵称搜索输入框
+
     search_click=(By.CSS_SELECTOR,'button[type = "submit"]')###商品评价页面查询按钮
 
     def Operation(self,n,i):
@@ -266,7 +268,7 @@ class shops_manage():
 
     create_account=(By.ID,'merchant.accounts')##开通商家账号
 
-    shops_id=(By.ID,'merchant.userName')##商家账号
+    shops_id=(By.ID,'merchant.newUserName')##商家账号
     shops_password=(By.ID,'merchant.passWord')##商家密码
     shops_num=(By.ID,'merchant.merchantId')#艾家编号
     shops_name=(By.ID,'merchant.merchantName')##商家名称
@@ -278,7 +280,9 @@ class shops_manage():
     company_certifyNO=(By.ID,'company.certifyNO')#营业执照注册号
     company_certifyName=(By.ID,'company.certifyName')###法定代表人姓名
     company_identityNo=(By.ID,'company.identityNo')##身份证号
-    business_license=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div/form/div[1]/div[3]')##营业执照
+    # business_license=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div/form/div[1]/div[3]')##营业执照
+    business_license = (By.CSS_SELECTOR, '.ant-collapse-item.ant-collapse-item-active')
+
     bank=(By.XPATH,'//*[@id="root"]/div/div/div[2]/div[2]/div[2]/div/div/div/form/div[1]/div[4]')##银行许可证
     bank_companyName=(By.ID,'bank.companyName')##银行公司名称
     bank_blankNo=(By.ID,'bank.blankNo')###公司银行账号
@@ -305,7 +309,7 @@ class shops_manage():
         return grade_n####第 n 个等级
 
     def remain_sum_and_recharge(self,n,m):
-        recharge=(By.CSS_SELECTOR,'.ant-table-tbody>tr:nth-child(%d)>td:nth-child(9)>span>span:nth-child(%d)'%(n,m))
+        recharge=(By.CSS_SELECTOR,'.ant-table-tbody>tr:nth-child(%d)>td:nth-child(7)>span>span:nth-child(%d)'%(n,m))
         return recharge###可用余额和充值按钮
 
     recharge_money=(By.ID,'money')###充值金额输入框

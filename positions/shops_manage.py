@@ -39,8 +39,8 @@ class Shops_Manage(shops_manage,Page):
         :return:
         """
         n=str(random.randint(1,1000))
-        self.find_element(*self.shops_id).send_keys('sxl')
-        print('输入的商家账号为：sxl')
+        self.find_element(*self.shops_id).send_keys('sxl123')
+        print('输入的商家账号为：sxl123')
 
     def Shops_password(self):
         """
@@ -90,13 +90,17 @@ class Shops_Manage(shops_manage,Page):
         """
         # file=self.file_path(os.path.dirname(os.path.dirname(__file__))+'/upload_img')
         # i=random.randint(0,len(file)-1)
-        self.find_element(*self.shops_logo).send_keys(self.file_path())
+        self.find_elements(*self.shops_logo)[0].send_keys(self.file_path())
         print('上传成功')
 
     def Shops_photo(self):
+        """
+        上传店铺展示图
+        :return:
+        """
         # file = self.file_path(os.path.dirname(os.path.dirname(__file__)) + '/upload_img')
         # i = random.randint(0, len(file) - 1)
-        self.find_element(*self.shops_photo).send_keys(self.file_path())
+        self.find_elements(*self.shops_logo)[1].send_keys(self.file_path())
         print('上传成功')
 
     def Company_name(self):
@@ -132,7 +136,7 @@ class Shops_Manage(shops_manage,Page):
         点击营业执照
         :return:
         """
-        self.find_element(*self.business_license).click()
+        self.find_elements(*self.business_license)[3].click()
 
     def Bank_companyName(self):
         """
@@ -225,6 +229,7 @@ class Shops_Manage(shops_manage,Page):
         当前页面商家总数
         :return:
         """
+        c=0
         a=self.find_elements(*self.shop_nu)
         if len(a)>0:
             c=random.randint(1,len(a))
