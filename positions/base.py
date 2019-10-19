@@ -35,7 +35,7 @@ class Page():
 
 #二次封装显示等待的方法
     def wait_element_located(self,driver,locator):
-        wait = WebDriverWait(driver,20)
+        wait = WebDriverWait(driver,20,0.5)
         wait.until(EC.presence_of_element_located(locator))
 
     def Get(self,url):
