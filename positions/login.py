@@ -9,11 +9,11 @@ class login_operate(Page,Log_in):
     """
     def input_name(self):
         self.find_element(*self.neme).clear() ###清空内容
-        self.find_element(*self.neme).send_keys('xingling')
+        self.find_element(*self.neme).send_keys('xinlin')
 
     def ipput_passWord(self):
         self.find_element(*self.passWord).clear()  ###清空内容
-        self.find_element(*self.passWord).send_keys('000000')
+        self.find_element(*self.passWord).send_keys('123456')
 
     def click_lofin_button(self):
         self.find_element(*self.login_submit).click()###点击登录按钮

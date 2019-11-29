@@ -1,0 +1,1276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自动化测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.9.1"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+    <link href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.common.min.js"></script>
+    <!-- <script type="text/javascript" src="js/echarts.common.min.js"></script> -->
+    
+    
+<style type="text/css" media="screen">
+    body        { font-family: Microsoft YaHei,Consolas,arial,sans-serif; font-size: 80%; }
+    table       { font-size: 100%; }
+    pre         { white-space: pre-wrap;word-wrap: break-word; }
+
+    /* -- heading ---------------------------------------------------------------------- */
+    h1 {
+        font-size: 16pt;
+        color: gray;
+    }
+    .heading {
+        margin-top: 0ex;
+        margin-bottom: 1ex;
+    }
+
+    .heading .attribute {
+        margin-top: 1ex;
+        margin-bottom: 0;
+    }
+
+    .heading .description {
+        margin-top: 2ex;
+        margin-bottom: 3ex;
+    }
+
+    /* -- css div popup ------------------------------------------------------------------------ */
+    a.popup_link {
+    }
+
+    a.popup_link:hover {
+        color: red;
+    }
+
+    .popup_window {
+        display: none;
+        position: relative;
+        left: 0px;
+        top: 0px;
+        /*border: solid #627173 1px; */
+        padding: 10px;
+        /*background-color: #E6E6D6; */
+        font-family: "Lucida Console", "Courier New", Courier, monospace;
+        text-align: left;
+        font-size: 8pt;
+        /* width: 500px;*/
+    }
+
+    }
+    /* -- report ------------------------------------------------------------------------ */
+    #show_detail_line {
+        margin-top: 3ex;
+        margin-bottom: 1ex;
+    }
+    #result_table {
+        width: 99%;
+    }
+    #header_row {
+        font-weight: bold;
+        color: #303641;
+        background-color: #ebebeb;
+    }
+    #total_row  { font-weight: bold; }
+    .passClass  { background-color: #bdedbc; }
+    .failClass  { background-color: #ffefa4; }
+    .errorClass { background-color: #ffc9c9; }
+    .passCase   { color: #6c6; }
+    .failCase   { color: #FF6600; font-weight: bold; }
+    .errorCase  { color: #c00; font-weight: bold; }
+    .hiddenRow  { display: none; }
+    .testcase   { margin-left: 2em; }
+
+
+    /* -- ending ---------------------------------------------------------------------- */
+    #ending {
+    }
+
+    #div_base {
+                position:absolute;
+                top:0%;
+                left:5%;
+                right:5%;
+                width: auto;
+                height: auto;
+                margin: -15px 0 0 0;
+    }
+</style>
+
+    
+</head>
+<body>
+    <script language="javascript" type="text/javascript"><!--
+    output_list = Array();
+
+    /* level - 0:Summary; 1:Failed; 2:All */
+    function showCase(level) {
+        trs = document.getElementsByTagName("tr");
+        for (var i = 0; i < trs.length; i++) {
+            tr = trs[i];
+            id = tr.id;
+            if (id.substr(0,2) == 'ft') {
+                if (level < 1) {
+                    tr.className = 'hiddenRow';
+                }
+                else {
+                    tr.className = '';
+                }
+            }
+            if (id.substr(0,2) == 'pt') {
+                if (level > 1) {
+                    tr.className = '';
+                }
+                else {
+                    tr.className = 'hiddenRow';
+                }
+            }
+        }
+    }
+
+
+    function showClassDetail(cid, count) {
+        var id_list = Array(count);
+        var toHide = 1;
+        for (var i = 0; i < count; i++) {
+            tid0 = 't' + cid.substr(1) + '.' + (i+1);
+            tid = 'f' + tid0;
+            tr = document.getElementById(tid);
+            if (!tr) {
+                tid = 'p' + tid0;
+                tr = document.getElementById(tid);
+            }
+            id_list[i] = tid;
+            if (tr.className) {
+                toHide = 0;
+            }
+        }
+        for (var i = 0; i < count; i++) {
+            tid = id_list[i];
+            if (toHide) {
+                document.getElementById('div_'+tid).style.display = 'none'
+                document.getElementById(tid).className = 'hiddenRow';
+            }
+            else {
+                document.getElementById(tid).className = '';
+            }
+        }
+    }
+
+
+    function showTestDetail(div_id){
+        var details_div = document.getElementById(div_id)
+        var displayState = details_div.style.display
+        // alert(displayState)
+        if (displayState != 'block' ) {
+            displayState = 'block'
+            details_div.style.display = 'block'
+        }
+        else {
+            details_div.style.display = 'none'
+        }
+    }
+
+
+    function html_escape(s) {
+        s = s.replace(/&/g,'&amp;');
+        s = s.replace(/</g,'&lt;');
+        s = s.replace(/>/g,'&gt;');
+        return s;
+    }
+
+    /* obsoleted by detail in <div>
+    function showOutput(id, name) {
+        var w = window.open("", //url
+                        name,
+                        "resizable,scrollbars,status,width=800,height=450");
+        d = w.document;
+        d.write("<pre>");
+        d.write(html_escape(output_list[id]));
+        d.write("\n");
+        d.write("<a href='javascript:window.close()'>close</a>\n");
+        d.write("</pre>\n");
+        d.close();
+    }
+    */
+    --></script>
+
+    <div id="div_base">
+        
+    <div class='page-header'>
+        <h1>自动化测试报告</h1>
+    <p class='attribute'><strong>开始时间:</strong> 2019-11-29 15:00:41</p>
+<p class='attribute'><strong>运行时长:</strong> 0:15:55.267000</p>
+<p class='attribute'><strong>状态:</strong> 通过 40 错误 2</p>
+
+    </div>
+    <div style="float: left;width:50%;"><p class='description'>运行环境：win7 Chrome</p></div>
+    <div id="chart" style="width:50%;height:400px;float:left;"></div>
+
+        
+    <div class="btn-group btn-group-sm">
+        <button class="btn btn-default" onclick='javascript:showCase(0)'>总结</button>
+        <button class="btn btn-default" onclick='javascript:showCase(1)'>失败</button>
+        <button class="btn btn-default" onclick='javascript:showCase(2)'>全部</button>
+    </div>
+    <p></p>
+    <table id='result_table' class="table table-bordered">
+        <colgroup>
+            <col align='left' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+            <col align='right' />
+        </colgroup>
+        <tr id='header_row'>
+            <td>测试套件/测试用例</td>
+            <td>总数</td>
+            <td>通过</td>
+            <td>失败</td>
+            <td>错误</td>
+            <td>查看</td>
+        </tr>
+        
+    <tr class='errorClass'>
+        <td>case_goods.My_home_case</td>
+        <td>36</td>
+        <td>35</td>
+        <td>0</td>
+        <td>1</td>
+        <td><a href="javascript:showClassDetail('c1',36)">详情</a></td>
+    </tr>
+
+<tr id='pt1.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_autid_button: 验证审核按钮</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.1')" >
+        通过</a>
+
+    <div id='div_pt1.1' class="popup_window">
+        <pre>pt1.1: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+50001600513860
+查询数据：50001600513860
+点击查询
+审核通过
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_click_class: 验证添加商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.2')" >
+        通过</a>
+
+    <div id='div_pt1.2' class="popup_window">
+        <pre>pt1.2: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/AddGoods
+一级分类为：家居建材
+二级分类为：特色手工艺
+无三级分类
+商品名称：test_1508
+副标题：test_2292
+第1240个商家名称:
+商品介绍为:testetsetetsetstt
+运费为：47
+商品成本价为：59
+商品售价为：597
+市场价为：427
+初始销量为：98
+首重为：786
+续重重量141
+续重重量单价：4
+儿童车
+选择商品属性225个:儿童车
+选择属性规格第1排，第2个
+选择属性规格第2排，第3个
+选择属性规格第2排，第1个
+商品sku_1重量为8：
+商品sku_2重量为8：
+SKU_1库存预警值：9
+SKU_2库存预警值：10
+上传03.png
+上传03.png
+上传11.png
+勾选成功
+上传11.png
+上传成功
+选择关联商品第3个
+关联成功
+提交成功
+http://192.168.1.72:82/#/IndexPage/https://mantest.godteam.net/#/IndexPage/GoodsList
+查询成功
+商品名称为：test_1508
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.3' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_page_break: 商品回收站页面，验证切换分页下拉框</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.3')" >
+        通过</a>
+
+    <div id='div_pt1.3' class="popup_window">
+        <pre>pt1.3: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsStation
+30 条/页
+30
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_shop: 验证删除上架商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.4')" >
+        通过</a>
+
+    <div id='div_pt1.4' class="popup_window">
+        <pre>pt1.4: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+删除的商品编码：50000240365670
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_shop01: 验证删除下架商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.5')" >
+        通过</a>
+
+    <div id='div_pt1.5' class="popup_window">
+        <pre>pt1.5: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+删除的商品编码：50000364792205
+查询数据：50000364792205
+点击查询
+删除成功
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.6' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_shop_class_and_name: 商品回收站，以商品分类和商家名称查询_retry:1</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.6')" >
+        通过</a>
+
+    <div id='div_pt1.6' class="popup_window">
+        <pre>pt1.6: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsStation
+选择的商品分类为：香蕉/2222
+选择的商家名称为:易乐购艾家（方便超市）
+点击查询
+查询无数据
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.7' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_shop_search: 商品回收站页面，验证搜索商品编码</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.7')" >
+        通过</a>
+
+    <div id='div_pt1.7' class="popup_window">
+        <pre>pt1.7: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsStation
+点击查询
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.8' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_shops_list_Shop_class: 商品回收站页面，验证以商品分类查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.8')" >
+        通过</a>
+
+    <div id='div_pt1.8' class="popup_window">
+        <pre>pt1.8: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsStation
+无二级分类
+选择的商品分类为：芒果/
+点击查询
+该分类无商品
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.9' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_shops_list_Shop_name: 商品回收站页面，以商家名称查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.9')" >
+        通过</a>
+
+    <div id='div_pt1.9' class="popup_window">
+        <pre>pt1.9: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsStation
+选择的商家名称为:方舟艾家
+点击查询
+该商家无商品
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.10' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_delete_shops_restore: 商品回收站页面，还原商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.10')" >
+        通过</a>
+
+    <div id='div_pt1.10' class="popup_window">
+        <pre>pt1.10: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsStation
+还原商品编码：50000913992976
+查询数据：50000913992976
+点击查询
+商品还原成功
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.11' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_goods_class: 商品分类，查询</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.11')" >
+        通过</a>
+
+    <div id='div_pt1.11' class="popup_window">
+        <pre>pt1.11: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsClass/0
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='ft1.12' class='none'>
+    <td class='errorCase'><div class='testcase'>test_goods_evaluate: 商品评价,按商品名称查询</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft1.12')" >
+        错误</a>
+
+    <div id='div_ft1.12' class="popup_window">
+        <pre>ft1.12: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Evaluate
+商品名称：快递配送+无订单 统一阿萨姆原味奶茶500ml
+Traceback (most recent call last):
+  File "G:\Operating_background_test_01\test_case\case_goods.py", line 663, in test_goods_evaluate
+    obj=hb.text_good_evaluate_name(4)[0]
+  File "G:\Operating_background_test_01\positions\commodity_management.py", line 813, in text_good_evaluate_name
+    n=random.randint(1,len(a))
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python36\lib\random.py", line 221, in randint
+    return self.randrange(a, b+1)
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python36\lib\random.py", line 199, in randrange
+    raise ValueError("empty range for randrange() (%d,%d, %d)" % (istart, istop, width))
+ValueError: empty range for randrange() (1,1, 0)
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.13' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_goods_evaluate_delete: 商品评价，删除</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.13')" >
+        通过</a>
+
+    <div id='div_pt1.13' class="popup_window">
+        <pre>pt1.13: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Evaluate
+商品名称：攀枝花露天甜贝贝5斤装（4盒）
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.14' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_goods_evaluate_username: 商品评价，按用户昵称查询</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.14')" >
+        通过</a>
+
+    <div id='div_pt1.14' class="popup_window">
+        <pre>pt1.14: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Evaluate
+用户昵称：ajgs1465622976
+搜索后的用户昵称：ajgs1465622976
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.15' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_goods_evaluate_view: 商品评价，查看</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.15')" >
+        通过</a>
+
+    <div id='div_pt1.15' class="popup_window">
+        <pre>pt1.15: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Evaluate
+商品名称：攀枝花凯特芒果
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.16' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_goods_rows: 商品评价，页面显示条数</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.16')" >
+        通过</a>
+
+    <div id='div_pt1.16' class="popup_window">
+        <pre>pt1.16: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Evaluate
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.17' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_login_case: 验证登录</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.17')" >
+        通过</a>
+
+    <div id='div_pt1.17' class="popup_window">
+        <pre>pt1.17: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+首页
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.18' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_page_break: 验证切换分页下拉框</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.18')" >
+        通过</a>
+
+    <div id='div_pt1.18' class="popup_window">
+        <pre>pt1.18: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+40 条/页
+40
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.19' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_putaway_shop: 点击上架按钮</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.19')" >
+        通过</a>
+
+    <div id='div_pt1.19' class="popup_window">
+        <pre>pt1.19: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+上架的商品编码：50000466800159
+查询数据：50000466800159
+点击查询
+class:ant-switch ant-switch-checked
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.20' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_revise_food_stamps: 修改粮票规则</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.20')" >
+        通过</a>
+
+    <div id='div_pt1.20' class="popup_window">
+        <pre>pt1.20: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的修改粮票规则为：可口可乐(艾家公社)
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.21' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_In_the_shelf: 验证商品列表，上架中商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.21')" >
+        通过</a>
+
+    <div id='div_pt1.21' class="popup_window">
+        <pre>pt1.21: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+按钮数量为11995
+分页处显示的数量为11995
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.22' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_Shop_class: 以商品分类查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.22')" >
+        通过</a>
+
+    <div id='div_pt1.22' class="popup_window">
+        <pre>pt1.22: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的商品分类为：苹果1
+点击查询
+该分类无商品
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.23' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_Shop_name: 以商家名称查询商品_retry:1</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.23')" >
+        通过</a>
+
+    <div id='div_pt1.23' class="popup_window">
+        <pre>pt1.23: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的商家名称为:萱宇艾家
+点击查询
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.24' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_The_shelves: 验证商品列表，下架中商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.24')" >
+        通过</a>
+
+    <div id='div_pt1.24' class="popup_window">
+        <pre>pt1.24: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+按钮数量为18968
+分页处显示的数量为18968
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.25' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_To_audit: 验证商品列表，待审核商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.25')" >
+        通过</a>
+
+    <div id='div_pt1.25' class="popup_window">
+        <pre>pt1.25: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+按钮数量为1008
+分页处显示的数量为1008
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.26' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_allshops: 验证商品列表，全部商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.26')" >
+        通过</a>
+
+    <div id='div_pt1.26' class="popup_window">
+        <pre>pt1.26: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+按钮数量为30963
+分页处显示的数量为30963
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.27' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_approve: 验证商品列表，审核通过</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.27')" >
+        通过</a>
+
+    <div id='div_pt1.27' class="popup_window">
+        <pre>pt1.27: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+按钮数量为29948
+分页处显示的数量为29948
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.28' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_disapprove: 验证商品列表，审核不通过</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.28')" >
+        通过</a>
+
+    <div id='div_pt1.28' class="popup_window">
+        <pre>pt1.28: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+按钮数量为7
+分页处显示的数量为7
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.29' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_group_query1: 上架中，以编号，分类，名称查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.29')" >
+        通过</a>
+
+    <div id='div_pt1.29' class="popup_window">
+        <pre>pt1.29: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的商品分类为：芒果
+选择的商家名称为:吉祥艾家
+点击查询
+无商品
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.30' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_group_query2: 下架中，以编号，分类，名称查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.30')" >
+        通过</a>
+
+    <div id='div_pt1.30' class="popup_window">
+        <pre>pt1.30: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的商品分类为：龙眼
+选择的商家名称为:友民艾家
+点击查询
+无商品
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.31' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_group_query3: 待审核，以编号，分类，名称查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.31')" >
+        通过</a>
+
+    <div id='div_pt1.31' class="popup_window">
+        <pre>pt1.31: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的商品分类为：香蕉
+选择的商家名称为:三和艾家
+点击查询
+无商品
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.32' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_group_query4: 审核通过，以编号，分类，名称查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.32')" >
+        通过</a>
+
+    <div id='div_pt1.32' class="popup_window">
+        <pre>pt1.32: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的商品分类为：线下服务
+选择的商家名称为:壹家艾家
+点击查询
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.33' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_group_query5: 审核不通过，以编号，分类，名称查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.33')" >
+        通过</a>
+
+    <div id='div_pt1.33' class="popup_window">
+        <pre>pt1.33: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的商品分类为：芒果
+选择的商家名称为:一家人便利艾家
+点击查询
+无商品
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.34' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_group_query6: 售罄，以编号，分类，名称查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.34')" >
+        通过</a>
+
+    <div id='div_pt1.34' class="popup_window">
+        <pre>pt1.34: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+选择的商品分类为：线下服务
+选择的商家名称为:佳睿艾家
+点击查询
+无商品
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.35' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_search: 以商品编号查询商品</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.35')" >
+        通过</a>
+
+    <div id='div_pt1.35' class="popup_window">
+        <pre>pt1.35: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+点击查询
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt1.36' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shops_list_sell_out: 验证商品列表，售罄</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt1.36')" >
+        通过</a>
+
+    <div id='div_pt1.36' class="popup_window">
+        <pre>pt1.36: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/GoodsList
+按钮数量为389
+分页处显示的数量为389
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+    <tr class='errorClass'>
+        <td>case_shops.shops_manage</td>
+        <td>6</td>
+        <td>5</td>
+        <td>0</td>
+        <td>1</td>
+        <td><a href="javascript:showClassDetail('c2',6)">详情</a></td>
+    </tr>
+
+<tr id='pt2.1' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_placeholder_query: 验证商家ID查询</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.1')" >
+        通过</a>
+
+    <div id='div_pt2.1' class="popup_window">
+        <pre>pt2.1: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Shop
+5db901810b06ca35d505325f
+5db901810b06ca35d505325f
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt2.2' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_shop_ID_query: 验证商家ID查询</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.2')" >
+        通过</a>
+
+    <div id='div_pt2.2' class="popup_window">
+        <pre>pt2.2: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Shop
+15719409009
+15719409009
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='ft2.3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_shops_check_in: 验证商家入驻</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_ft2.3')" >
+        错误</a>
+
+    <div id='div_ft2.3' class="popup_window">
+        <pre>ft2.3: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/ShopDetail/0/edit
+Traceback (most recent call last):
+  File "G:\Operating_background_test_01\test_case\case_shops.py", line 17, in test_shops_check_in
+    hb.Create_account()
+  File "G:\Operating_background_test_01\positions\shops_manage.py", line 33, in Create_account
+    self.wait_element_located(self.driver,self.create_account)
+  File "G:\Operating_background_test_01\positions\base.py", line 39, in wait_element_located
+    wait.until(EC.presence_of_element_located(locator))
+  File "C:\Users\pc\AppData\Local\Programs\Python\Python36\lib\site-packages\selenium\webdriver\support\wait.py", line 80, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt2.4' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_store_Recharge: 验证商家充值</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.4')" >
+        通过</a>
+
+    <div id='div_pt2.4' class="popup_window">
+        <pre>pt2.4: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Shop
+13
+剩余的可用余额为：0
+输入充值金额为：866
+剩余的可用余额为：866
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt2.5' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_store_grade: 验证商家等级查询</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.5')" >
+        通过</a>
+
+    <div id='div_pt2.5' class="popup_window">
+        <pre>pt2.5: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Shop
+供应商
+供应商
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+<tr id='pt2.6' class='hiddenRow'>
+    <td class='none'><div class='testcase'>test_store_name: 验证商家名称查询</div></td>
+    <td colspan='5' align='center'>
+
+    <!--css div popup start-->
+    <a class="popup_link" onfocus='this.blur();' href="javascript:showTestDetail('div_pt2.6')" >
+        通过</a>
+
+    <div id='div_pt2.6' class="popup_window">
+        <pre>pt2.6: G:\Operating_background_test_01\Application60\chromedriver.exe
+登录成功
+http://192.168.1.72:82/#/IndexPage/Shop
+暂未修改
+暂未修改
+</pre>
+    </div>
+    <!--css div popup end-->
+
+    </td>
+</tr>
+
+        <tr id='total_row'>
+            <td>总计</td>
+            <td>42</td>
+            <td>40</td>
+            <td>0</td>
+            <td>2</td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+        <div id='ending'>&nbsp;</div>
+        
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title : {
+                text: '测试执行情况',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            color: ['#95b75d', 'grey', '#b64645'],
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['通过','失败','错误']
+            },
+            series : [
+                {
+                    name: '测试执行情况',
+                    type: 'pie',
+                    radius : '60%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:40, name:'通过'},
+                        {value:0, name:'失败'},
+                        {value:2, name:'错误'}
+                    ],
+                    labelLine:
+                        {
+                            show: false,
+                            lineStyle:{
+                                color:'transparent'
+                            },
+                        },
+                    label:
+                        {
+                            formatter:(d) => {
+                            return ''
+                        }
+                    },
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    
+    </div>
+</body>
+</html>
